@@ -4,20 +4,14 @@ import 'package:money_rate/view_model.dart';
 
 class MoneyRatesProvider extends ChangeNotifier {
 
-  final _moneyApi = MoneyApi();
+  final moneyApi = MoneyApi();
 
-  List<MoneyViewModel> moneyRates = [];
+  Map<String, dynamic> moneyRates = {};
+  List<String> shownList = [];
 
-  bool isLoading = false;
-
-  Future<void> fetchRates(String query) async {
-    isLoading = true;
+  Future fetchMoneyRates(String query) async {
+    moneyRates = await moneyApi.getMoneyRates(query);
+    shownList = moneyRates.keys.toList();
     notifyListeners();
-
-    moneyRates = await _moneyApi.getRates(query);
-    notifyListeners(); //상태 바뀔때마다 붙임
-
-    isLoading = false;
-    notifyListeners();
-}
+  }
 }

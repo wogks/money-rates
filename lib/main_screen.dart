@@ -22,21 +22,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MoneyRatesProvider>();
+    final orientation = MediaQuery.of(context).orientation;
 
     return Scaffold(
-      appBar: AppBar(
-      actions: [
-        IconButton(
-          onPressed: () {
-            setState(() {});
-          },
-          icon: const Icon(Icons.add),
-          color: Colors.black,
-        )
-      ],
-      backgroundColor: Colors.white,
-      title: const Text('Exchange Rate', style: TextStyle(color: Colors.black)),
-    ),
+      appBar: _buildAppbar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -52,15 +41,71 @@ class _MainScreenState extends State<MainScreen> {
               ),
               suffixIcon: GestureDetector(
                 onTap: () {
-                  viewModel.fetchRates(_controller.text);
+                  viewModel.fetchMoneyRates(_controller.text);
                 },
                 child: const Icon(Icons.search),
               ),
               hintText: '검색어 입력',
             ),
+          ),
+          Row(
+            children: [
+              Flexible(
+                  flex: 2,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 40,
+                    color: Colors.red,
+                    child: const Text('Contry Name'),
+                  )),
+              Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 40,
+                    color: Colors.blue,
+                    child: const Text('Currency'),
+                  )),
+              Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 40,
+                    color: Colors.green,
+                    child: const Text('Money Rates'),
+                  )),
+            ],
+          ),
+          Expanded(child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int index) {
+              return Row(
+                
+              );
+            }
+            )
           )
         ],
       ),
+    );
+  }
+
+  AppBar _buildAppbar() {
+    return AppBar(
+      actions: [
+        IconButton(
+          onPressed: () {
+            setState(() {});
+          },
+          icon: const Icon(Icons.add),
+          color: Colors.black,
+        )
+      ],
+      backgroundColor: Colors.white,
+      title: const Text('Exchange Rate', style: TextStyle(color: Colors.black)),
     );
   }
 }
