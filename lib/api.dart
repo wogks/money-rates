@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:money_rate/country_model.dart';
 import 'package:money_rate/data.dart';
-import 'package:money_rate/view_model.dart';
 
 class MoneyApi {
   Future<Map<String, dynamic>> getMoneyRates(String query) async {
@@ -18,7 +17,6 @@ class MoneyApi {
       return {};
     }
     Map<String, dynamic> moneyRates = json['conversion_rates'];
-    print(moneyRates);
     return moneyRates;
   }
 

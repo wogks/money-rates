@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:money_rate/view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:money_rate/provider.dart';
 
@@ -120,17 +119,32 @@ class _MainScreenState extends State<MainScreen> {
                                 softWrap: true,
                               ),
                             ),
-                            Expanded(
-                                child: Text(
-                              viewModel
-                                  .findCountryName(viewModel.shownList[index]),
-                              overflow: TextOverflow.fade,
-                              softWrap: true,
-                            )),
                           ],
                         ),
                       ),
                     ),
+                    Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 40,
+                        child: Text(viewModel.shownList[index]),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 40,
+                        child: Text(
+                          viewModel.moneyRates[viewModel.shownList[index]]
+                          .toString()
+                              ,
+                        ),
+                      ),
+                    )
                   ],
                 );
               },
