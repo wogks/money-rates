@@ -33,7 +33,9 @@ class _MainScreenState extends State<MainScreen> {
             controller: _controller,
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
                 borderSide: BorderSide(
                   color: Colors.black,
                   width: 1,
@@ -60,33 +62,79 @@ class _MainScreenState extends State<MainScreen> {
                     child: const Text('Contry Name'),
                   )),
               Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 40,
-                    color: Colors.blue,
-                    child: const Text('Currency'),
-                  )),
+                flex: 1,
+                fit: FlexFit.tight,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 40,
+                  color: Colors.blue,
+                  child: const Text('Currency'),
+                ),
+              ),
               Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 40,
-                    color: Colors.green,
-                    child: const Text('Money Rates'),
-                  )),
+                flex: 1,
+                fit: FlexFit.tight,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 40,
+                  color: Colors.green,
+                  child: const Text('Money Rates'),
+                ),
+              ),
             ],
           ),
-          Expanded(child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context, int index) {
-              return Row(
-                
-              );
-            }
-            )
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: viewModel.shownList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      flex: 2,
+                      fit: FlexFit.tight,
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 40,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.network(
+                              viewModel
+                                  .findImageUrl(viewModel.shownList[index]),
+                              width: 30,
+                              height: 20,
+                              fit: BoxFit.cover,
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Expanded(
+                              child: Text(
+                                viewModel.findCountryName(
+                                  viewModel.shownList[index],
+                                ),
+                                overflow: TextOverflow.fade,
+                                softWrap: true,
+                              ),
+                            ),
+                            Expanded(
+                                child: Text(
+                              viewModel
+                                  .findCountryName(viewModel.shownList[index]),
+                              overflow: TextOverflow.fade,
+                              softWrap: true,
+                            )),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           )
         ],
       ),

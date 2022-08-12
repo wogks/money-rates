@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:money_rate/country_model.dart';
+import 'package:money_rate/data.dart';
 import 'package:money_rate/view_model.dart';
 
 class MoneyApi {
@@ -16,6 +18,15 @@ class MoneyApi {
       return {};
     }
     Map<String, dynamic> moneyRates = json['conversion_rates'];
+    print(moneyRates);
     return moneyRates;
+  }
+
+  Future<List<Country>> getNationName() async {
+    await Future.delayed(const Duration(seconds: 1));
+    String jsonString = data;
+
+    Iterable json = jsonDecode(jsonString);
+    return json.map((e) => Country.fromJson(e)).toList();
   }
 }
